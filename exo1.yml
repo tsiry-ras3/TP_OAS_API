@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: exo1
+  version: 1.0.0
+paths:
+  /ping:
+    get:
+      responses:
+        200:
+          description: pong
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+
