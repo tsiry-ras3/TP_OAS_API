@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: exo4
+  title: exo5
   version: 1.0.0
 components:
   schemas:
