@@ -1,0 +1,122 @@
+openapi: 3.0.3
+info:
+  title: exo3
+  version: 1.0.0
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Faire les courses
+        completed:
+          type: boolean
+          example: false
+    Id:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 1
+paths:
+  /tasks:
+    get:
+      responses:
+        200:
+          description: tasks list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      responses:
+        201:
+          description: new tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+
+      requestBody:
+        content:
+          application/json:
+           schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
+    delete:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Id'
+
+      responses:
+        200:
+          description: delete task list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+
+  /tasks/{id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: tasks
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Task'
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Task not found
+    delete:
+      parameters:
+       - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: delete
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Task'
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Task not found
+
+
+
