@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: exo4
+  version: 1.0.0
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          example: keyboard
+        expiration_datetime:
+          type: string
+          format: date-time
+          example: "2025-03-13T14:42:00Z"
+        price:
+          type: number
+          format: float
+          example: 2000.20
+
+  parameters:
+    limit:
+      name: limit
+      description: nombre maximum d'elements
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 10
+    q:
+      name: q
+      description: terme de recherche
+      in: query
+      required: false
+      schema:
+        type: string
+        example: mouse
+paths:
+  /products:
+    parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/q'
+    get:
+      responses:
+        200:
+          description: product list
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+              examples:
+                multipleProducts:
+                  value:
+                    - name: keyboard
+                      expiration_datetime: "2025-03-13T14:42:00Z"
+                      price: 2013.06
+                    - name: mouse
+                      expiration_datetime: "2025-06-27T14:42:00Z"
+                      price: 2013.06
+                emptyList:
+                  value: []
+
