@@ -81,9 +81,9 @@ paths:
                   $ref: '#/components/schemas/Task'
 
   /tasks/{id}:
+    parameters:
+      - $ref: '#/components/parameters/id'
     get:
-      parameters:
-        - $ref: '#/components/parameters/id'
       responses:
         200:
           description: tasks
@@ -100,8 +100,6 @@ paths:
                 type: string
                 example: Task not found
     delete:
-      parameters:
-       - $ref: '#/components/parameters/id'
       responses:
         200:
           description: delete
