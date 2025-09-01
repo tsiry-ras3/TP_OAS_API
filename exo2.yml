@@ -16,6 +16,13 @@ paths:
                   id: 1
                   name: "Alice"
                   email: "alice@example.com"
+        400:
+          description: bad types of parameters provided
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Bad type for provieded query parameters
     parameters:
       - name: page
         in: query
