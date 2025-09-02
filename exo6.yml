@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: exo6
+  version: 1.0.0
+
+paths:
+  /user/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+    get: 
+      responses: 
+        200:
+          description: return user information
+          content: 
+            application/json:
+              schema: 
+                type: object
+                $ref: '#/components/schemas/UserProfile'
+        404:
+          description: user not found
+          content: 
+            application/json:
+              schema: 
+                type: string
+                example: user not found
+
+components:
+  schemas:
+    CreateUserProfile:
+      properties:
+        identifier:
+          type: string
+          example: 1
+
+
+    PersonalInfo:
+      properties:
+        first_name:
+          type: string
+          example: Bozy
+        last_name:
+          type: string
+          example: RAKOTO
+        birthdate:
+          type: string
+          format: full-date
+          example: "2025-06-26"
+    Address:
+      properties:
+        email:
+          type: string
+          format: email
+          example: support@example.com
+        address_street:
+          type: string
+          example: 12d
+        address_city:
+          type: string
+          example: Atananarivo
+        address_country:
+          type: string
+          example: Madagascar
+        address_postal_code:
+          type: integer
+          example: 100
+    Preferences:
+      properties:
+        needs_newsletter:
+          type: boolean
+          example: false
+        language:
+          type: string
+          enum:
+            - fr
+            - mg
+            - eng
+    UserProfile:
+      allOf:
+        - $ref: '#/components/schemas/CreateUserProfile'
+        - $ref: '#/components/schemas/PersonalInfo'
+        - $ref: '#/components/schemas/Address'
+        - $ref: '#/components/schemas/Preferences'
+
+
+
