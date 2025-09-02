@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 
 paths:
-  /user/{id}:
+  /users/{id}:
     parameters:
       - name: id
         in: path
@@ -12,34 +12,47 @@ paths:
         schema:
           type: integer
           example: 1
-    get: 
-      responses: 
+    get:
+      responses:
         200:
           description: return user information
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 $ref: '#/components/schemas/UserProfile'
         404:
           description: user not found
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: string
                 example: user not found
+  /users:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUserProfile'
 
+
+      responses:
+        201:
+          description: create user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfile'
 components:
   schemas:
-    CreateUserProfile:
-      properties:
-        identifier:
-          type: string
-          example: 1
-
-
     PersonalInfo:
-      properties:
+     properties:
         first_name:
           type: string
           example: Bozy
@@ -81,7 +94,17 @@ components:
             - eng
     UserProfile:
       allOf:
-        - $ref: '#/components/schemas/CreateUserProfile'
+        - type: object
+          properties:
+            identifier:
+              type: string
+              format: uuid
+              example: 1
+        - $ref: '#/components/schemas/PersonalInfo'
+        - $ref: '#/components/schemas/Address'
+        - $ref: '#/components/schemas/Preferences'
+    CreateUserProfile:
+      allOf:
         - $ref: '#/components/schemas/PersonalInfo'
         - $ref: '#/components/schemas/Address'
         - $ref: '#/components/schemas/Preferences'
