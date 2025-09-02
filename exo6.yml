@@ -38,8 +38,6 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/CreateUserProfile'
-
-
       responses:
         201:
           description: create user
@@ -49,6 +47,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserProfile'
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: bad request
 components:
   schemas:
     PersonalInfo:
